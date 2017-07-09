@@ -1,0 +1,45 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
+/**
+ * @ORM\Entity
+ * @ORM\Table(name="website")
+ */
+class Website {
+  
+  /**
+   * @ORM\Column(type="integer")
+   * @ORM\Id
+   * @ORM\GeneratedValue(strategy="AUTO")
+   */
+  private $id;
+  
+  /**
+   * @Assert\NotBlank()
+   * @ORM\Column(type="string", length=100)
+   */
+  private $displayName;
+  
+  /**
+   * @Assert\NotBlank()
+   * @ORM\Column(type="string", length=250)
+   */
+  private $url;
+  
+  /**
+   * @Assert\NotBlank()
+   * @ORM\Column(type="text")
+   */
+  private $checkString;
+  
+  /**
+   * @ORM\Column(type="smallint")
+   */
+  private $status;
+  
+  
+}
