@@ -2,10 +2,12 @@
 
 namespace AppBundle\Command;
 
-use AppBundle\Checkers\Curl;
+use AppBundle\Checker\CurlChecker;
+use AppBundle\Event\CheckEvent;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\EventDispatcher\EventDispatcher;
 
 
 class CheckWebsites extends ContainerAwareCommand {
@@ -38,19 +40,22 @@ class CheckWebsites extends ContainerAwareCommand {
       
       // Check the website
       $output->writeln('Checking ' . $website->getDisplayName());
-      $checker = new Curl($website->getUrl(), $website->getCheckString());
+      $checker = new CurlChecker($website->getUrl(), $website->getCheckString());
       $checker->check();
       
       // Update status
       $website->setStatus($checker->getError());
   
-      // Print the results
+      // Send notifications
       if ($checker->getError() == 0) {
         $output->writeln('<info>OK</info>');
       }
       else {
         $output->writeln('<error>Error: ' . $checker->getErrorMessage() . '</error>');
       }
+      $event = new CheckEvent($website, $checker);
+      $dispatcher = $this->getContainer()->get('event_dispatcher');
+      $dispatcher->dispatch(CheckEvent::NAME, $event);
     }
     
     // Save changes to database

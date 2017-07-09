@@ -1,9 +1,9 @@
 <?php
 
-namespace AppBundle\Checkers;
+namespace AppBundle\Checker;
 
 
-class Curl {
+class CurlChecker implements CheckerInterface {
   
   /**
    * URL to check
@@ -69,6 +69,7 @@ class Curl {
     $curl = curl_init();
     curl_setopt($curl, CURLOPT_URL, $this->url);
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($curl, CURLOPT_HEADER, 1);
     curl_setopt($curl, CURLOPT_TIMEOUT, 10);
     curl_setopt($curl, CURLOPT_USERAGENT, "Agile Collective time reporting");
   
@@ -86,12 +87,14 @@ class Curl {
     // Check for check string
     if (strpos($this->response, $this->checkString) !== FALSE) {
       $this->checkFound = TRUE;
-      return 0;
+      $this->error = 0;
     }
     else {
       $this->checkFound = FALSE;
-      return -1;
+      $this->error = -1;
     }
+    
+    return $this->error;
   }
   
   /**
