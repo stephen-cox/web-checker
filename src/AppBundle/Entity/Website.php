@@ -40,27 +40,38 @@ class Website {
    * @ORM\Column(type="smallint", nullable=TRUE)
    */
   private $status;
-  
-  
+
+  /**
+   * Set id
+   *
+   * @param integer $id
+   * @return Website
+   */
+  public function setId($id) {
+
+    $this->id = $id;
+    return $this;
+  }
+
   /**
    * Get id
    *
    * @return integer
    */
   public function getId() {
+
     return $this->id;
   }
-  
+
   /**
    * Set displayName
    *
    * @param string $displayName
-   *
    * @return Website
    */
   public function setDisplayName($displayName) {
+
     $this->displayName = $displayName;
-    
     return $this;
   }
   
@@ -70,6 +81,7 @@ class Website {
    * @return string
    */
   public function getDisplayName() {
+
     return $this->displayName;
   }
   
@@ -77,12 +89,11 @@ class Website {
    * Set url
    *
    * @param string $url
-   *
    * @return Website
    */
   public function setUrl($url) {
+
     $this->url = $url;
-    
     return $this;
   }
   
@@ -92,6 +103,7 @@ class Website {
    * @return string
    */
   public function getUrl() {
+
     return $this->url;
   }
   
@@ -99,12 +111,11 @@ class Website {
    * Set checkString
    *
    * @param string $checkString
-   *
    * @return Website
    */
   public function setCheckString($checkString) {
+
     $this->checkString = $checkString;
-    
     return $this;
   }
   
@@ -114,6 +125,7 @@ class Website {
    * @return string
    */
   public function getCheckString() {
+
     return $this->checkString;
   }
   
@@ -121,12 +133,12 @@ class Website {
    * Set status
    *
    * @param integer $status
-   *
+
    * @return Website
    */
   public function setStatus($status) {
+
     $this->status = $status;
-    
     return $this;
   }
   
@@ -136,6 +148,7 @@ class Website {
    * @return integer
    */
   public function getStatus() {
+
     return $this->status;
   }
 }

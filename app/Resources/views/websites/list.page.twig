@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Websites | Website Checker{% endblock %}
+
+{% block body %}
+  <section>
+    <table class="website-list">
+      <tr class="website-list__header">
+        <th>Status</th>
+        <th>Name</th>
+        <th>Address</th>
+        <th>Check text</th>
+        <th>&nbsp;</th>
+      </tr>
+      {% for website in websites %}
+        <tr class="website-list__row website-list__row--{{ website.getStatus() ? 'error' : 'ok' }}">
+          <td>{{ website.getStatus() ? 'Down' : 'Up' }}</td>
+          <td>{{ website.getDisplayName() }}</td>
+          <td>{{ website.getUrl() }}</td>
+          <td>{{ website.getCheckString() }}</td>
+          <td><a href="{{ path('edit-website', {'id': website.getId()}) }}" class="button">Edit</a></td>
+        </tr>
+      {% endfor %}
+    </table>
+    <a href="{{ path('new-website') }}" class="button">New</a>
+  </section>
+{% endblock %}

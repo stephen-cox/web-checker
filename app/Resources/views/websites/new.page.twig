@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Website | Website Checker{% endblock %}
+
+{% block body %}
+  <section>
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    {{ form_end(form) }}
+    <a href="{{ path('websites') }}" class="button">Cancel</a>
+  </section>
+{% endblock %}

@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Delete {{ website.getDisplayName() }} | Website Checker{% endblock %}
+
+{% block body %}
+  <section>
+    <p>Are you sure you want to delete the check for {{ website.getDisplayName() }}?</p>
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    {{ form_end(form) }}
+    <a href="{{ path('websites') }}" class="button">Cancel</a>
+  </section>
+{% endblock %}
