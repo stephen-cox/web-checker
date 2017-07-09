@@ -47,10 +47,13 @@ class EmailNotifier {
       foreach ($notifiers as $notify) {
         $recipients[$notify->getEmailAddress()] = $notify->getDisplayName();
       }
-      $subject = 'Website Alert: ' . $website->getDisplayName() . ' - ' . $checker->getErrorMessage();
-      $body = $checker->getResponse();
+      $subject = 'Website Alert - ' . $website->getDisplayName() . ' - ' . $checker->getErrorMessage();
+      $body = "Error fetching ". $website->getUrl() . "
+" . $checker->getErrorMessage() ."
+
+" . var_export($checker->getInfo(), TRUE);
       if ($recipients) {
-        $this->sendEmail($recipients, $subject, $body);
+        $this->sendEmail($recipients, $subject, $body, $checker->getResponse());
       }
     }
   }
@@ -61,14 +64,23 @@ class EmailNotifier {
    * @param array $recipients
    * @param string $subject
    * @param string $body
+   * @param string $attachment
    */
-  protected function sendEmail($recipients, $subject, $body) {
+  protected function sendEmail($recipients, $subject, $body, $attachment = NULL) {
     
     $message = (new \Swift_Message($subject))
       ->setFrom(['servers@agile.coop' => 'Server Alerts'])
       ->setTo($recipients)
       ->setContentType('text/plain')
       ->setBody($body);
+    
+    if ($attachment) {
+      $file = (new \Swift_Attachment())
+        ->setFilename('response.txt')
+        ->setContentType('text/plain')
+        ->setBody($attachment);
+      $message->attach($file);
+    }
     
     $this->container->get('mailer')->send($message);
   }
