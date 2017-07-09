@@ -18,8 +18,7 @@ class WebsitesController extends Controller {
   public function websitesAction() {
     
     // Get list of websites to check
-    $doctrine = $this->get('doctrine');
-    $em = $doctrine->getEntityManager();
+    $em = $this->getDoctrine()->getManager();
     $repository = $em->getRepository('AppBundle:Website');
     $websites = $repository->findAll();
 
@@ -54,7 +53,7 @@ class WebsitesController extends Controller {
    */
   public function editWebsiteAction(Request $request, $id) {
 
-    $em = $this->get('doctrine')->getEntityManager();
+    $em = $this->getDoctrine()->getManager();
     $repository = $em->getRepository('AppBundle:Website');
     $website = $repository->findOneById($id);
     $form = $this->createForm(WebsiteType::class, $website);
@@ -76,7 +75,7 @@ class WebsitesController extends Controller {
    */
   public function deleteWebsiteAction(Request $request, $id) {
 
-    $em = $this->get('doctrine')->getEntityManager();
+    $em = $this->getDoctrine()->getManager();
     $repository = $em->getRepository('AppBundle:Website');
     $website = $repository->findOneById($id);
 

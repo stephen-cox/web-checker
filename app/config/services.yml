@@ -29,6 +29,9 @@ services:
         public: true
         tags: ['controller.service_arguments']
 
+    # Aliases for autowiring
+    AppBundle\Checker\CurlChecker: '@checker_interface'
+
     # Listeners
     app.event.email_notifier:
         class: AppBundle\Notifier\EmailNotifier
