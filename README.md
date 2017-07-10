@@ -1,4 +1,3 @@
-web_checker
-===========
+# web-checker
 
-A Symfony project created on July 8, 2017, 4:39 pm.
+Symfony application to check if websites are online and send alerts if they go offline.
