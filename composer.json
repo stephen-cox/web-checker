@@ -1,5 +1,5 @@
 {
-    "name": "stephen/web_checker",
+    "name": "web-checker",
     "license": "proprietary",
     "type": "project",
     "autoload": {
