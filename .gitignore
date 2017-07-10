@@ -17,5 +17,8 @@
 /vendor/
 /web/bundles/
 
+# Theme files
+node_modules
+
 # IDE files
 .idea
